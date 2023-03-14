@@ -5,5 +5,72 @@
 {% endblock %}
 
 {% block content %}
+	<div class="container text-center">
+		<div class="row p-4">
 
+			<div class="col">
+				<h3 class="p-2">hx-trigger</h3>
+				<button hx-get="/mouse-click" type="button" class="btn btn-primary">GET</button>
+				<div class="p-2 m-2 border border-secondary rounded" hx-post="/mouse-hover"
+				     hx-trigger="mouseenter once" hx-swap="innerHTML">
+					Trigger on mouse hover once
+				</div>
+				<p id="first-label">Click me, I'm #first-label</p>
+				<div class="p-2 m-2 border border-secondary rounded" hx-post="/mouse-click"
+				     hx-trigger="click from:#first-label" hx-swap="innerHTML">
+					Trigger on #first-label
+				</div>
+				<div class="p-2 m-2 border border-secondary rounded" hx-post="/mouse-hover"
+				     hx-trigger="mouseenter delay:2s" hx-swap="innerHTML">
+					Trigger on mouse hover with 2 sec delay
+				</div>
+
+				<h3 class="p-2">hx-swap</h3>
+				<button hx-get="/add-list-item" hx-target="#test-list" hx-swap="beforebegin" type="button"
+				        class="btn btn-primary my-1">beforebegin
+				</button>
+				<button hx-get="/add-list-item" hx-target="#test-list" hx-swap="afterbegin" type="button"
+				        class="btn btn-primary my-1">afterbegin
+				</button>
+				<button hx-get="/add-list-item" hx-target="#test-list" hx-swap="afterend" type="button"
+				        class="btn btn-primary my-1">afterend
+				</button>
+				<button hx-get="/add-list-item" hx-target="#test-list" hx-swap="beforeend" type="button"
+				        class="btn btn-primary my-1">beforeend
+				</button>
+				<button hx-get="/add-list-item" hx-target="#test-list" hx-swap="innerHTML" type="button"
+				        class="btn btn-primary my-1">innerHTML
+				</button>
+				<button hx-get="/add-list-item" hx-target="#test-list" hx-swap="outerHTML" type="button"
+				        class="btn btn-primary my-1">outerHTML
+				</button>
+				<button hx-get="/add-list-item" hx-target="#test-list" hx-swap="delete" type="button"
+				        class="btn btn-primary my-1">delete
+				</button>
+				<ul id="test-list">
+					<li>First item in list</li>
+				</ul>
+
+			</div>
+
+			<div class="col">
+				<h3>Polling url every 5s</h3>
+				<p>With htmx-indicator as a gif spinner</p>
+				<img width="30" class="htmx-indicator" src="/static/spinner.gif" alt="spinner">
+				<div hx-get="/polling" hx-trigger="every 5s" hx-target="#polling" hx-indicator=".htmx-indicator">
+					<p id="polling">Waiting...</p>
+				</div>
+			</div>
+
+			<div class="col">
+				<h3>Search number</h3>
+				<input class="form-control mb-2" type="search"
+				       name="search" placeholder="Type number, one to five"
+				       hx-post="/search"
+				       hx-trigger="keyup changed delay:500ms, search"
+				       hx-target="#search-results">
+				<p id="search-results"></p>
+			</div>
+		</div>
+	</div>
 {% endblock %}
