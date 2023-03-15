@@ -10,7 +10,8 @@
 
 			<div class="col">
 				<h3 class="p-2">hx-trigger</h3>
-				<button hx-get="/mouse-click" type="button" class="btn btn-primary">GET</button>
+				<button hx-get="/mouse-click" hx-confirm="Are you sure?" type="button" class="btn btn-primary">GET
+				</button>
 				<div class="p-2 m-2 border border-secondary rounded" hx-post="/mouse-hover"
 				     hx-trigger="mouseenter once" hx-swap="innerHTML">
 					Trigger on mouse hover once
@@ -54,7 +55,7 @@
 			</div>
 
 			<div class="col">
-				<h3>Polling url every 5s</h3>
+				<h3 class="p-2">Polling url every 5s</h3>
 				<p>With htmx-indicator as a gif spinner</p>
 				<img width="30" class="htmx-indicator" src="/static/spinner.gif" alt="spinner">
 				<div hx-get="/polling" hx-trigger="every 5s" hx-target="#polling" hx-indicator=".htmx-indicator">
@@ -63,13 +64,21 @@
 			</div>
 
 			<div class="col">
-				<h3>Search number</h3>
+				<h3 class="p-2">Search number</h3>
 				<input class="form-control mb-2" type="search"
 				       name="search" placeholder="Type number, one to five"
 				       hx-post="/search"
 				       hx-trigger="keyup changed delay:500ms, search"
 				       hx-target="#search-results">
 				<p id="search-results"></p>
+
+				<h3 class="p-2">Click To Edit</h3>
+				<div hx-target="this" hx-swap="outerHTML">
+					<div><label>Name</label>: John</div>
+					<div><label>Age</label>: 30</div>
+					<button hx-get="/edit" class="btn btn-primary mt-2">Click To Edit</button>
+				</div>
+
 			</div>
 		</div>
 	</div>

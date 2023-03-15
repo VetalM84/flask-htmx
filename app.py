@@ -46,5 +46,34 @@ def search():
     return "Nothing found"
 
 
+@app.route("/edit", methods=["GET", "PUT"])
+def click_to_edit():
+    user = {
+        "name": "John",
+        "age": 30,
+    }
+    if request.method == "GET":
+        return f"""<form hx-put='/edit' hx-target='this' hx-swap='outerHTML'>
+                  <div>
+                    <label>Name</label>
+                    <input class="form-control mb-2" type='text' name="name" value='{user['name']}'>
+                  </div>
+                  <div class='form-group'>
+                    <label>Age</label>
+                    <input class="form-control mb-2" type='number' name='age' value="{user['age']}">
+                  </div>
+                  <button class="btn btn-primary mt-2">Submit</button>
+                  </form>"""
+
+    else:
+        user["name"] = request.form.get("name")
+        user["age"] = request.form.get("age")
+        return f"""<div hx-target="this" hx-swap="outerHTML">
+                <div><label>Name</label>: {user['name']}</div>
+                <div><label>Age</label>: {user['age']}</div>
+                <button hx-get="/edit" class="btn btn-primary mt-2">Click To Edit</button>
+                </div>"""
+
+
 if __name__ == "__main__":
     app.run()
