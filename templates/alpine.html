@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block head %}
+	<script src="https://unpkg.com/alpinejs" defer></script>
+	<title>Alpine.js</title>
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h3 class="p-2">Alpine.js</h3>
+				<div class="my-3" x-data="{ open: false }">
+					<button @click="open = !open" class="btn btn-primary">Toggle visibility</button>
+					<div x-show="open" x-transition.duration.700ms>Contents...</div>
+				</div>
+
+				<div class="my-3" x-data="{
+					open: false,
+					toggle() {
+						this.open = !this.open
+					}
+				}">
+					<button @click="toggle()" class="btn btn-primary">Toggle visibility v2</button>
+					<div x-show="open" x-transition.duration.700ms>Contents...</div>
+				</div>
+
+				<div class="my-3" x-data="{ text: 'Hello world' }">
+					<div x-text="text"></div>
+					<button @click="text = 'Reset'" class="btn btn-primary">Reset text</button>
+				</div>
+
+				<div class="my-3" x-data="{ text: '<b>Hello world</b>' }">
+					<div x-html="text"></div>
+				</div>
+
+				<div class="my-3" x-data="">
+					<label>Test event
+						<input type="text" @keydown.enter="console.log($event)" class="form-control">
+					</label>
+				</div>
+
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -10,6 +10,11 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/alpine")
+def alpine():
+    return render_template("alpine.html")
+
+
 @app.route("/mouse-hover", methods=["GET", "POST"])
 def mouse_hover():
     return "Mouse hover event caught"
