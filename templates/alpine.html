@@ -8,7 +8,7 @@
 {% block content %}
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-6">
 				<h3 class="p-2">Alpine.js</h3>
 				<div class="my-3" x-data="{ open: false }">
 					<button @click="open = !open" class="btn btn-primary">Toggle visibility</button>
@@ -40,12 +40,45 @@
 					</label>
 				</div>
 
-				<form class="my-3" x-data="{ name: '' }" @submit="">
-					<label>Sync input value with data
-						<input x-model="name" type="text" id="dataForm" class="form-control">
-					</label>
+				<form class="my-3" x-data="{ name: '', rules: false }" @submit.prevent="">
+					<label for="dataForm">Sync input value with data</label><br>
+					<input x-model="name" type="text" id="dataForm">
+					<button @click="name = 'some text'" class="btn btn-primary">Change text</button>
+					<br>
 					<div x-text="name"></div>
+					<input x-model="rules" type="checkbox" id="rules">
+					<label for="rules">I agree with rules</label>
+					<div x-text="rules"></div>
 				</form>
+
+				<div class="my-3" x-data="{ gender: '' }">
+					<div>
+						<label for="male">Male</label><input type="radio" x-model="gender" id="male" value="M">
+					</div>
+					<div>
+						<label for="female">Female</label><input type="radio" x-model="gender" id="female" value="F">
+					</div>
+					<div x-text="gender"></div>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="my-3" x-data="{
+				name: '',
+				result: '',
+				getData() {
+					fetch(`https://api.nationalize.io?name=${this.name}`)
+					.then(response => response.json())
+					.then(response => this.result = response?.country[0]?.country_id)
+					}
+				}">
+					<label for="nameForm">Name</label><br>
+					<input @keyup.debounce.700ms="getData()" x-model="name" type="text" id="nameForm"
+					       class="form-control col-md-4">
+					<template x-if="result">
+						<div x-text="result"></div>
+					</template>
+				</div>
 
 			</div>
 		</div>
