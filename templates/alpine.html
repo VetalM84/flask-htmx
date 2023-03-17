@@ -35,10 +35,17 @@
 				</div>
 
 				<div class="my-3" x-data="">
-					<label>Test event
-						<input type="text" @keydown.enter="console.log($event)" class="form-control">
+					<label>Log event to console
+						<input type="text" @change="console.log($event.target.value)" class="form-control">
 					</label>
 				</div>
+
+				<form class="my-3" x-data="{ name: '' }" @submit="">
+					<label>Sync input value with data
+						<input x-model="name" type="text" id="dataForm" class="form-control">
+					</label>
+					<div x-text="name"></div>
+				</form>
 
 			</div>
 		</div>
