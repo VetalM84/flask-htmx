@@ -66,18 +66,41 @@
 				<div class="my-3" x-data="{
 				name: '',
 				result: '',
+				countries: {},
 				getData() {
 					fetch(`https://api.nationalize.io?name=${this.name}`)
 					.then(response => response.json())
-					.then(response => this.result = response?.country[0]?.country_id)
+					.then(response => {
+						this.result = response?.country[0]?.country_id
+						this.countries = response?.country
+						})
 					}
 				}">
 					<label for="nameForm">Name</label><br>
 					<input @keyup.debounce.700ms="getData()" x-model="name" type="text" id="nameForm"
 					       class="form-control col-md-4">
 					<template x-if="result">
-						<div x-text="result"></div>
+						<div class="d-flex">
+							<div>First result:</div>
+							<div x-text="result"></div>
+						</div>
 					</template>
+
+					<template x-for="val in countries" :key="val.country_id">
+						<div class="d-flex">
+							<div x-text="val.country_id"></div>
+							:
+							<div x-text="val.probability"></div>
+						</div>
+					</template>
+				</div>
+
+				<div class="my-3" x-data="{
+				onPageLoad() {
+					const el = document.getElementById('xinit');
+					el.innerHTML = 'x-init example';
+					} }" x-init="onPageLoad()">
+					<div id="xinit"></div>
 				</div>
 
 			</div>
