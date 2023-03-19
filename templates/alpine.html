@@ -2,6 +2,7 @@
 
 {% block head %}
 	<script src="https://unpkg.com/alpinejs" defer></script>
+	<style>[x-cloak] { display: none !important; }</style>
 	<title>Alpine.js</title>
 {% endblock %}
 
@@ -101,6 +102,17 @@
 					el.innerHTML = 'x-init example';
 					} }" x-init="onPageLoad()">
 					<div id="xinit"></div>
+				</div>
+
+				<div class="my-3" x-data="{ show: false }">
+					<fieldset @click.outside="show = false" class="border border-1 border-secondary">
+						<legend>@click.outside and x-cloak</legend>
+						<button @click="show = true">Show</button>
+						<div x-cloak x-show="show">
+							<input type="radio" id="radio"/>
+							<label for="radio">Spirit of radio</label>
+						</div>
+					</fieldset>
 				</div>
 
 			</div>
