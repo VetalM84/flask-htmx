@@ -13,6 +13,11 @@
 	      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <body>
+<div class="container text-center">
+	<a class="m-3" href="{{ url_for("index") }}">HTMX</a>
+	<a class="m-3" href="{{ url_for("alpine") }}">Alpine.js</a>
+</div>
+
 {% block content %}
 
 {% endblock %}
