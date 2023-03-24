@@ -2,7 +2,9 @@
 
 {% block head %}
 	<script src="https://unpkg.com/alpinejs" defer></script>
-	<style>[x-cloak] { display: none !important; }</style>
+	<style>[x-cloak] {
+        display: none !important;
+    }</style>
 	<title>Alpine.js</title>
 {% endblock %}
 
@@ -124,6 +126,12 @@
 							<label for="radio">Spirit of radio</label>
 						</div>
 					</fieldset>
+				</div>
+
+				<div class="my-3" x-data="{ show: false }">
+					<button x-bind:class="show ? 'btn-outline-primary': 'btn-primary'" @click="show = !show"
+					        class="btn">x-bind
+					</button>
 				</div>
 
 			</div>
