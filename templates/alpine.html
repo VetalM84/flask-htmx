@@ -134,10 +134,33 @@
 					</button>
 				</div>
 
-				<div class="my-3" x-data="">
+				<div class="my-3" x-data>
 					<button @click="$el.innerText = 'Hello world!'" class="btn btn-primary">$el</button>
 				</div>
 
+				<div class="my-3" x-data @notify="alert('@notify')">
+					<button @click="$dispatch('notify')" class="btn btn-primary">@notify</button>
+				</div>
+
+				<div x-data="{ open: false }" x-init="$watch('open', value => console.log(value))">
+					<button @click="open = ! open" class="btn btn-primary">$watch</button>
+				</div>
+
+				<div class="my-3" x-data>
+					<p x-bind:class="$store.darkMode.on && 'text-light text-bg-dark'" class="p-4">This is dark mode example. This is dark mode
+						example. This is dark mode example.</p>
+					<button @click="$store.darkMode.toggle()" class="btn btn-dark">Toggle dark mode</button>
+				</div>
+				<script>
+                    document.addEventListener('alpine:init', () => {
+                        Alpine.store('darkMode', {
+                            on: false,
+                            toggle() {
+                                this.on = !this.on
+                            },
+                        })
+                    })
+				</script>
 			</div>
 		</div>
 	</div>
