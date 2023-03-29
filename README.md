@@ -1,0 +1,1 @@
+Playground for Alpine.js and HTMX running Flask
